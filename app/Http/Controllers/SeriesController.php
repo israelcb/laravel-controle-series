@@ -12,9 +12,15 @@ class SeriesController extends Controller
             'Punisher',
             'Lost',
             'Grey\'s Anatomy',
+            'A > B',
         );
 
 
         return view('series.index')->with('series', $series);
+    }
+
+    public function create()
+    {
+        return view('series.create');
     }
 }
