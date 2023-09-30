@@ -12,7 +12,6 @@ class SeriesController extends Controller
             'Punisher',
             'Lost',
             'Grey\'s Anatomy',
-            'A > B',
         );
 
 
