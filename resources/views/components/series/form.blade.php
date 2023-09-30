@@ -2,7 +2,7 @@
     @csrf
 
     @if($update)
-    @method($method)
+    @method('PUT')
     @endif
 
     <div class="mb-3">
