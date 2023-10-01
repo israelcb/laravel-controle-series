@@ -27,30 +27,31 @@ class SeriesController extends Controller
 
     public function store(SeriesFormRequest $request)
     {
-        $series = null;
-        DB::transaction(function() use ($request, &$series) {
-            $series = Series::create($request->all());
+        DB::beginTransaction();
 
-            $seasons = array();
-            for ($i = 1; $i <= $request->seasonsQty; $i++) {
-                $seasons[] = array(
-                    'series_id' => $series->id,
+        $series = Series::create($request->all());
+
+        $seasons = array();
+        for ($i = 1; $i <= $request->seasonsQty; $i++) {
+            $seasons[] = array(
+                'series_id' => $series->id,
+                'number'    => $i,
+            );
+        }
+        Season::insert($seasons);
+
+        $episodes = array();
+        foreach ($series->seasons as $season) {
+            for ($i = 1; $i <= $request->episodesPerSeason; $i++) {
+                $episodes[] = array(
+                    'season_id' => $season->id,
                     'number'    => $i,
                 );
             }
-            Season::insert($seasons);
-    
-            $episodes = array();
-            foreach ($series->seasons as $season) {
-                for ($i = 1; $i <= $request->episodesPerSeason; $i++) {
-                    $episodes[] = array(
-                        'season_id' => $season->id,
-                        'number'    => $i,
-                    );
-                }
-            }
-            Episode::insert($episodes);
-        });
+        }
+        Episode::insert($episodes);
+
+        DB::commit();
 
         return to_route('series.index')
             ->with('mensagem.sucesso', "Série '{$series->nome}' adicionada com sucesso");
