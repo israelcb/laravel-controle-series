@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SeriesFormRequest;
-use App\Models\Serie;
+use App\Models\Series;
 
 class SeriesController extends Controller
 {
     public function index()
     {
-        $seriesList = Serie::all();
+        $seriesList = Series::all();
         $mensagemSucesso = session('mensagem.sucesso');
 
         return view('series.index')
@@ -24,18 +24,18 @@ class SeriesController extends Controller
 
     public function store(SeriesFormRequest $request)
     {
-        $series = Serie::create($request->all());
+        $series = Series::create($request->all());
 
         return to_route('series.index')
             ->with('mensagem.sucesso', "Série '{$series->nome}' adicionada com sucesso");
     }
 
-    public function edit(Serie $series)
+    public function edit(Series $series)
     {
         return view('series.edit')->with('series', $series);
     }
 
-    public function update(Serie $series, SeriesFormRequest $request)
+    public function update(Series $series, SeriesFormRequest $request)
     {
         $series->fill($request->all());
         $series->save();
@@ -44,7 +44,7 @@ class SeriesController extends Controller
             ->with('mensagem.sucesso', "Série '{$series->nome}' atualizada com sucesso");
     }
 
-    public function destroy(Serie $series)
+    public function destroy(Series $series)
     {
         $series->delete();
 
