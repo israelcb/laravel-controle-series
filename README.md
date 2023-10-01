@@ -1,6 +1,6 @@
 Repositório criado durante os cursos da Alura:
-- Laravel: criando uma aplicação com MVC
-- Laravel: validando formulários, usando sessões e definnido relacionamentos
+1. Laravel: criando uma aplicação com MVC
+2. Laravel: validando formulários, usando sessões e definnido relacionamentos
 
 ## License
 
