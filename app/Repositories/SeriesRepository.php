@@ -1,7 +1,6 @@
 <?php
 namespace App\Repositories;
 
-use App\Http\Requests\SeriesFormRequest;
 use App\Models\Episode;
 use App\Models\Season;
 use App\Models\Series;
@@ -9,14 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class SeriesRepository
 {
-    public function add(SeriesFormRequest $request)
+    public function add(array $data)
     {
         DB::beginTransaction();
 
-        $series = Series::create($request->all());
+        $series = Series::create($data);
 
         $seasons = array();
-        for ($i = 1; $i <= $request->seasonsQty; $i++) {
+        for ($i = 1; $i <= $data['seasonsQty']; $i++) {
             $seasons[] = array(
                 'series_id' => $series->id,
                 'number'    => $i,
@@ -26,7 +25,7 @@ class SeriesRepository
 
         $episodes = array();
         foreach ($series->seasons as $season) {
-            for ($i = 1; $i <= $request->episodesPerSeason; $i++) {
+            for ($i = 1; $i <= $data['episodesPerSeason']; $i++) {
                 $episodes[] = array(
                     'season_id' => $season->id,
                     'number'    => $i,
