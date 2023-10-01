@@ -1,4 +1,4 @@
-Repositório criado durante os cursos da Alura:
+Repositório criado durante os cursos realizados na plataforma Alura:
 1. Laravel: criando uma aplicação com MVC
 2. Laravel: validando formulários, usando sessões e definnido relacionamentos
 
