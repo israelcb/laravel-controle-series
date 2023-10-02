@@ -6,5 +6,5 @@ use App\Models\Season;
 
 interface EpisodesRepository
 {
-    public function markAsWatched(Season $season, array $episodes);
+    public function markAsWatched(Season $season, array $watchedEps);
 }

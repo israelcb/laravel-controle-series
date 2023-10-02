@@ -16,7 +16,7 @@ class EpisodesController extends Controller
             ->with('episodes', $season->episodes);
     }
 
-    public function store(Season $season, Request $request)
+    public function update(Season $season, Request $request)
     {
         $episodes = $request->episodes;
         $this->repository->markAsWatched($season, $episodes);

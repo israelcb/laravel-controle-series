@@ -8,19 +8,13 @@ use Illuminate\Support\Facades\DB;
 
 class EloquentEpisodesRepository implements EpisodesRepository
 {
-    public function markAsWatched(Season $season, array $episodes)
+    public function markAsWatched(Season $season, array $watchedEps)
     {
         DB::beginTransaction();
-        foreach ($season->episodes as $episode) {
-            $episode->watched = false;
-            $episode->save();
-        }
-
-        $watchedEpisodes = Episode::query()->whereIn('id', $episodes)->get();
-        foreach ($watchedEpisodes as $episode) {
-            $episode->watched = true;
-            $episode->save();
-        }
+        $season->episodes->each(function(Episode $ep) use ($watchedEps) {
+            $ep->watched = in_array($ep->id, $watchedEps);
+        });
+        $season->push();
         DB::commit();
     }
 }
