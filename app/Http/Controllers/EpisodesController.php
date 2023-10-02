@@ -12,8 +12,11 @@ class EpisodesController extends Controller
 
     public function index(Season $season)
     {
+        $mensagemSucesso = session('mensagem.sucesso');
+
         return view('episodes.index')
-            ->with('episodes', $season->episodes);
+            ->with('episodes', $season->episodes)
+            ->with('mensagemSucesso', $mensagemSucesso);
     }
 
     public function update(Season $season, Request $request)
@@ -21,6 +24,7 @@ class EpisodesController extends Controller
         $episodes = $request->episodes;
         $this->repository->markAsWatched($season, $episodes);
 
-        return to_route('episodes.index', $season->id);
+        return to_route('episodes.index', $season->id)
+            ->with('mensagem.sucesso', 'Episódios atualizados com sucesso!');
     }
 }
