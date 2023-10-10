@@ -14,8 +14,10 @@ class LoginController extends Controller
 
     public function store(Request $request)
     {
-        if (!Auth::attempt($request->all())) {
-            return redirect()->back()->withErrors(['Usuários ou senha inválidos']);
+        if (!Auth::attempt($request->only(['email', 'password']))) {
+            return redirect()->back()->withErrors('Usuários ou senha inválidos');
         }
+
+        return to_route('series.index');
     }
 }
