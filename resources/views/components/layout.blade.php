@@ -12,7 +12,13 @@
             <a class="navbar-brand" href="{{ route('series.index') }}">Home</a>
 
             @auth
-            <a href="{{ route('logout') }}">Sair</a>
+            <form action="{{ route('logout') }}" method="post">
+                @csrf
+                <a
+                    href="#"
+                    onclick="event.preventDefault(); this.closest('form').submit();"
+                >Sair</a>
+            </form>
             @endauth
 
             @if (!isset($login))
