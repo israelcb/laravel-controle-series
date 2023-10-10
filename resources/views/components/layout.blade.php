@@ -15,9 +15,11 @@
             <a href="{{ route('logout') }}">Sair</a>
             @endauth
 
-            @guest
-            <a href="{{ route('login') }}">Entrar</a>    
-            @endguest
+            @if (!isset($login))
+                @guest
+                <a href="{{ route('login') }}">Entrar</a>    
+                @endguest
+            @endif
         </div>
     </nav>
     <div class="container">
